@@ -9,6 +9,7 @@ blksz = 1024
 defaultHost = 'localhost'
 defaultPort = 50001
 
+
 helptext = """
 Usage...
 server=> getfile.py  -mode server            [-port nnn] [-host hhh|localhost]
@@ -21,6 +22,10 @@ def now():
 
 
 def parsecommandline():
+    '''
+    It would be better to use argparse
+    #TODO: implement argparse
+    '''
     dict_ = {}
     args = sys.argv[1:]
     while len(args) >= 2:
