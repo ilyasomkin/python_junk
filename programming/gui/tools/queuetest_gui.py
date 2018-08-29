@@ -8,7 +8,7 @@ dataQueue = queue.Queue()
 
 def producer(id_):
     for i in range(5):
-        time.sleep(0.1)
+        time.sleep(.1)
         print('put')
         dataQueue.put('[producer id_=%d, count=%d]' % (id_, i))
 
