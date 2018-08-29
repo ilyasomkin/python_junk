@@ -38,7 +38,7 @@ class DynamicForm(Form):
 
     def onSubmit(self):
         print('Field values...')
-        Form.onSubmit(self)
+        super(DynamicForm, self).onSubmit()
         self.onCancel()
 
 
