@@ -1,0 +1,85 @@
+{%- extends "base.html" %}
+{% import "bootstrap/utils.html" as utils %}
+
+{% block content %}
+    <div class="container" style="margin-top: 20px">
+        <div class="row" align="center">
+            <div class="col-md-12">
+                <img src="{{ url_for('static', filename='ucp.png') }}" width="40%" height="40%">
+            </div>
+        </div>
+        {% if error %}
+        <div class="alert alert-danger" align="center" style="margin-left: 10%; margin-right: 10%">
+            <strong>Error!</strong> {{ error }}
+        </div>
+        {% endif %}
+        {% if result_link %}
+        <div class="alert alert-success" align="center" style="margin-left: 10%; margin-right: 10%">
+            <strong>Success!</strong> {{ result_link }}
+        </div>
+        {% endif %}
+        <div class="row" align="center">
+            <a href="{{ url_for('order') }}" role="button" class="btn btn-info">Order pickles</a>
+            <a href="{{ url_for('tracking') }}" role="button" class="btn btn-success">Track your order</a>
+        </div>
+        <div class="row" align="center">
+            &nbsp;
+            {% if order_form %}
+                <form class="form form-horizontal" method="post" role="form" action="{{ url_for('order') }}">
+                    <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+                    <div class="input-group" style="margin-bottom: 10px; margin-right: 10%; margin-left: 10%">
+                        <span class="input-group-addon">Name</span>
+                        <input type="text" placeholder="Name" name="name" class="form-control">
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 10px; margin-right: 10%; margin-left: 10%">
+                        <span class="input-group-addon">Address Line 1</span>
+                        <input type="text" placeholder="Address Line 1" name="address1" class="form-control">
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 10px; margin-right: 10%; margin-left: 10%">
+                        <span class="input-group-addon">Address Line 2</span>
+                        <input type="text" placeholder="Address Line 2" name="address2" class="form-control">
+                    </div>
+
+                    <div class="row" style="margin-left: 10%; margin-right: 10%; margin-bottom: 10px" align="center">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="submit" class="btn btn-success" value="Place order">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+            {% if track_form %}
+                <form class="form form-horizontal" method="post" role="form" action="{{ url_for('tracking') }}">
+                    <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+                    <div class="input-group" style="margin-bottom: 10px; margin-right: 10%; margin-left: 10%">
+                        <span class="input-group-addon">Tracking number</span>
+                        <input type="text" placeholder="Tracking number" name="track" class="form-control">
+                    </div>
+                    <div class="row" style="margin-left: 10%; margin-right: 10%; margin-bottom: 10px" align="center">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="submit" class="btn btn-success" value="Track order">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        {% if tracking_number %}
+        <div class="alert alert-success" align="center" style="margin-left: 10%; margin-right: 10%; margin-bottom: 10px">
+            <strong>Your tracking number is: </strong> <br/>
+            <pre>{{ tracking_number }}</pre>
+        </div>
+        {% endif %}
+
+        <footer class="modal-footer">
+            <p>
+                &copy; Yandex Information Security Team, 2016 <br/>
+                       also did good job in 2018 (ШкИБ). Thank You.
+            </p>
+        </footer>
+    </div>
+{%- endblock %}

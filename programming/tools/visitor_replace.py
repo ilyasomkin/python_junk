@@ -1,0 +1,30 @@
+from visitor import SearchVisitor
+import sys
+
+
+class ReplaceVisitor(SearchVisitor):
+    def __init__(self, fromStr, toStr, listOnly=False, trace=0):
+        super(ReplaceVisitor, self).__init__(fromStr, trace)
+        self.changed = []
+        self.toStr = toStr
+        self.listOnly = listOnly
+
+    def visitMatch(self, fname, text):
+        self.changed.append(fname)
+        if not self.listOnly:
+            fromStr, toStr = self.context, self.toStr
+            text = text.replace(fromStr.encode(), 
+                                toStr.encode())
+            open(fname, 'wb').write(text)
+
+
+if __name__ == '__main__':
+    listonly = input('List only?') == 'y'
+    visitor = ReplaceVisitor(sys.argv[2], sys.argv[3], listonly)
+    if listonly or input('Proceed with changes?') == 'y':
+        visitor.run(startDir=sys.argv[1])
+        action = 'Changed' if not listonly else 'Found'
+        print('Visited %d files' % (visitor.fcount))
+        print(action, '%d files:' % len(visitor.changed))
+        for fname in visitor.changed:
+            print(fname)
