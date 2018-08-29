@@ -85,17 +85,17 @@ class QuietPortableLauncher(PortableLauncher):
 
 def selftest():
     print('Parent pid:', os.getppid())
-    file = 'echo.py'
+    file_ = 'echo.py'
     input('default mode...')
-    launcher = PortableLauncher('running ' + file, file)
+    launcher = PortableLauncher('running ' + file_, file_)
     launcher()
 
     input('system mode...')
-    System('running ' + file, file)()
+    System('running ' + file_, file_)()
 
     if sys.platform[:3] == 'win':
         input('DOS start mode...')
-        StartArgs('running ' + file, file)()
+        StartArgs('running ' + file_, file_)()
 
 
 if __name__ == '__main__':
