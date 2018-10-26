@@ -5,7 +5,7 @@ class Set(list):
         list.__init__([])
         self.concat(value)
     ...
-to avoid __len__(self), __getitem__(self, key) overloading
+to avoid __len__(self), __getitem__(self, key) overriding
 '''
 
 class Set:
